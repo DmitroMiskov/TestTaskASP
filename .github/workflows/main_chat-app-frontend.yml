@@ -77,11 +77,11 @@ jobs:
             </system.webServer>
           </configuration>' > web.config
 
-      - name: 'Deploy to Azure Web App'
-        uses: azure/webapps-deploy@v3
+      - name: Deploy to Azure Web App
         id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
         with:
           app-name: 'chat-app-frontend'
           slot-name: 'Production'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE_FRONTEND }}
           package: .
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_d03c5b4b2b714d97b3f97fe68a25d972 }}
