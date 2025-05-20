@@ -24,20 +24,21 @@ jobs:
           dotnet-version: '8.0'
 
       - name: Check directory structure
-        run: ls -la
-
-      - name: Navigate to ChatApp directory
-        run: cd ChatApp
+        run: |
+          ls -la
+          find . -name "*.csproj" | sort
 
       - name: Build with dotnet
         run: |
-          cd ChatApp
-          dotnet build --configuration Release
+          # Замініть цей шлях на правильний шлях до вашого .csproj файлу
+          # Приклад: dotnet build ./ChatApp/ChatApp.API/ChatApp.API.csproj --configuration Release
+          find . -name "*.csproj" -type f -exec dotnet build {} --configuration Release \;
 
       - name: dotnet publish
         run: |
-          cd ChatApp
-          dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+          # Замініть цей шлях на правильний шлях до вашого .csproj файлу
+          # Приклад: dotnet publish ./ChatApp/ChatApp.API/ChatApp.API.csproj -c Release -o ${{env.DOTNET_ROOT}}/myapp
+          find . -name "*.csproj" -type f -exec dotnet publish {} -c Release -o ${{env.DOTNET_ROOT}}/myapp \;
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
